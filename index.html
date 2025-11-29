@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم المتجر المتكاملة</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- مكتبة Font Awesome للأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- خط Tajawal للعربية -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <!-- ملفات التنسيق الخاصة -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="screen.css">
+
+</head>
+<body>
+  <!-- ==========  تاثير العنكبوت ========== -->
+  <div id="particles-js" class="particles-bg"></div>
+  <!-- ========== المحتوى الرئيسي ========== -->
+  <div class="container">
+    <!-- ========== التحميل    ========== -->
+    <div id="loading-screen">
+      <div class="loading-container">
+        <div class="loading-logo">
+          <i class="fas fa-gear"></i>
+        </div>
+        <div class="loading-progress-container">
+          <div class="loading-progress-bar">
+            <div class="loading-progress-fill"></div>
+          </div>
+          <div class="loading-progress-text">0%</div>
+        </div>
+        <div class="loading-message">جاري التحميل...</div>
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== الشريط الجانبي للشاشات الكبيرة ========== -->
+    <aside id="desktopSidebar" class="desktop-sidebar">
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" data-section="dashboard" class="active">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="categories">
+            <i class="fas fa-list"></i>
+            <span>الاقسام</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="products">
+            <i class="fas fa-box"></i>
+            <span>المنتجات</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="orders">
+            <i class="fas fa-shopping-cart"></i>
+            <span>الطلبات</span>
+            <span class="notification-badge" id="ordersBadgeDesktop" style="display: none;">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="customer-messages">
+            <i class="fas fa-envelope"></i>
+            <span>الرسائل</span>
+            <span class="notification-badge" id="messagesBadgeDesktop" style="display: none;">0</span>
+          </a>
+        </li>
+        <li>
+          <button type="button" class="desktop-btn" id="themeToggleDesktop">
+            <i class="fas fa-moon"></i>
+            <span>الثيم</span>
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- ========== الهيدر العلوي  ========== -->
+    <div class="mobile-header">
+        <button class="bttn" id="themeToggleMobile">
+            <i class="fas fa-moon"></i>
+        </button>
+        
+        <div class="logo" id="currentSectionTitle">لوحة تحكم المتجر</div>
+        
+        <button class="bttn" id="backToDashboardBtn">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <!-- ==========  الصفحة الرئيسية ========== -->
+    <div id="dashboard" class="section-content active">
+    
+      <!-- قسم الترحيب والإحصائيات -->
+      <div class="welcome-dashboard">
+        <div class="welcome-header">
+          <h1><i class="fas fa-user-circle"></i> مرحباً </h1>
+        </div>
+      
+        <!-- بطاقات الإحصائيات -->
+        <div class="stats-cards">
+          <!--  للطلبات الجديدة -->
+          <div class="stat-card orders">
+            <div class="stat-header">
+              <i class="fas fa-shopping-cart stat-icon orders-icon"></i>
+              <p>طلبيات جديدة</p>
+            </div>
+            <div class="stat-info">
+              <h3 id="newOrdersCount">0</h3>
+              <a href="#" class="view-more-btn" data-section="orders">
+                <span>المزيد</span>
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <div class="stat-accent-line" aria-hidden="true"></div>
+          </div>
+  
+          <!-- للرسائل الجديدة -->
+          <div class="stat-card messages">
+            <div class="stat-header">
+              <i class="fas fa-envelope stat-icon messages-icon"></i>
+              <p>رسائل جديدة</p>
+            </div>
+            <div class="stat-info">
+              <h3 id="newMessagesCount">0</h3>
+                <a href="#" class="view-more-btn" data-section="customer-messages">
+                  <span>المزيد</span>
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="stat-accent-line" aria-hidden="true"></div>
+          </div>
+  
+          <!--  للمنتجات الحالية -->
+          <div class="stat-card products">
+            <div class="stat-header">
+              <i class="fas fa-box stat-icon products-icon"></i>
+              <p>المنتجات الحالية</p>
+            </div>
+            <div class="stat-info">
+              <h3 id="currentProductsCount">0</h3>
+              <a href="#" class="view-more-btn" data-section="products">
+                <span>المزيد</span>
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+            <div class="stat-accent-line" aria-hidden="true"></div>
+          </div>
+  
+          <!-- الإيرادات -->
+          <div class="stat-card revenue">
+            <div class="stat-header">
+              <select id="revenueFilter" class="revenue-filter">
+                <option value="all">الإيرادات</option>
+                <option value="today">إيراد اليوم</option>
+                <option value="month">إيراد الشهر</option>
+                <option value="year">إيراد السنة</option>
+              </select>
+            </div>
+            <div class="stat-info">
+              <h3 id="revenueAmount">0</h3>
+            </div>
+            <div class="stat-accent-line" aria-hidden="true"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- بطاقات الأقسام لوحة القيادة -->
+      <div class="dashboard-title">
+        <h1><i class="fas fa-tachometer-alt"></i> لوحة القيادة</h1>
+      </div>
+      
+      <div class="dashboard-grid">
+        <div class="dashboard-card" data-section="welcome">
+          <div class="icon-wrap"><i class="fas fa-comment-dots"></i></div>
+          <h3>رسالة الترحيب</h3>
+          <p> إداره "الترحيب"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+
+        <div class="dashboard-card" data-section="bot">
+          <div class="icon-wrap"><i class="fas fa-robot"></i></div>
+          <h3>البوت</h3>
+          <p>إدارة "الرد الآلي"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+
+        <div class="dashboard-card" data-section="faq">
+          <div class="icon-wrap"><i class="fas fa-question-circle"></i></div>
+          <h3>سؤال وجواب</h3>
+          <p>إدارة "سؤال وجواب"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      
+        <div class="dashboard-card" data-section="contact">
+          <div class="icon-wrap"><i class="fas fa-link"></i></div>
+          <h3>التواصل</h3>
+          <p>إدارة "التواصل"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      
+        <div class="dashboard-card" data-section="serv">
+          <div class="icon-wrap"><i class="fas fa-cogs"></i></div>
+          <h3>الخدمات</h3>
+          <p>إدارة "الخدمات"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      
+        <div class="dashboard-card" data-section="stats">
+          <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
+          <h3>الإحصائيات</h3>
+          <p>إدارة "الإحصائيات"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      
+        <div class="dashboard-card" data-section="time">
+          <div class="icon-wrap"><i class="fas fa-tags"></i></div>
+          <h3>العروض</h3>
+          <p>إدارة "العروض"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      
+        <div class="dashboard-card" data-section="who">
+          <div class="icon-wrap"><i class="fas fa-book"></i></div>
+          <h3>من نحن</h3>
+          <p>إدارة محتوى "قصتنا"</p>
+          <div class="accent-line" aria-hidden="true"></div>
+        </div>
+      </div>
+
+    </div>
+  
+    <!-- ========== قسم رسالة الترحيب ========== -->
+    <div id="welcome" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="form-container">
+            <form id="welcomeForm">
+              <div class="form-row-compact">
+                <div class="form-group">
+                  <label for="welcomeTextAr">النص العربي</label>
+                  <textarea id="welcomeTextAr" class="form-control" rows="4" placeholder="أدخل النص العربي هنا..." required></textarea>
+                </div>
+          
+                <div class="form-group">
+                  <label for="welcomeTextEn">النص الإنجليزي</label>
+                  <textarea id="welcomeTextEn" class="form-control" rows="4" placeholder="Enter the English text here..." required></textarea>
+                </div>
+              </div>
+        
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== قسم سؤال وجواب ========== -->
+    <div id="faq" class="section-content">
+      <div class="grid-container">
+        <div>
+          <button class="btn-add" id="addFaqBtn">
+            <i class="fas fa-plus"></i> إضافة سؤال جديد
+          </button>
+
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر الأسئلة الشائعة">
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="faqSearch" class="search-form" placeholder="ابحث...">
+                <button id="faqSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="faqGrid" class="grid-view"></div>
+        </div>
+  
+        <div id="faqModalRoot" style="display:none"></div>
+      </div>
+    </div>
+  
+    <!-- ========== قسم التواصل ========== -->
+    <div id="contact" class="section-content">
+      <div class="grid-container">
+        <div>
+          <button class="btn-add" id="addContactBtn">
+            <i class="fas fa-plus"></i> إضافة قناة جديدة
+          </button>
+    
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر قنوات التواصل">
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="contactSearch" class="search-form" placeholder="ابحث...">
+                <button id="contactSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="contactGrid" class="grid-view"></div>
+        </div>
+        <div id="contactModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم الخدمات ========== -->
+    <div id="serv" class="section-content">
+      <div class="grid-container">
+        <div>
+          <button class="btn-add" id="addServiceBtn">
+            <i class="fas fa-plus"></i> إضافة خدمة جديدة
+          </button>
+    
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر الخدمات">
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="servicesSearch" class="search-form" placeholder="ابحث...">
+                <button id="servicesSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="servicesGrid" class="grid-view"></div>
+        </div>
+        <div id="servicesModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم الإحصائيات ========== -->
+    <div id="stats" class="section-content">
+      <div class="grid-container">
+        <div>
+          <button class="btn-add" id="addStatBtn">
+            <i class="fas fa-plus"></i> إضافة إحصائية جديدة
+          </button>
+    
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر الإحصائيات">
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="statsSearch" class="search-form" placeholder="ابحث...">
+                <button id="statsSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="statsGrid" class="grid-view"></div>
+        </div>
+        <div id="statsModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم العروض ========== -->
+    <div id="time" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="btn-group">
+            <button class="btn-add" id="addCategoryPromoBtn">
+              <i class="fas fa-list"></i> اضافه عرض على قسم
+            </button>
+            <button class="btn-add-two" id="addProductPromoBtn">
+              <i class="fas fa-box"></i> اضافه عرض على منتج
+            </button>
+          </div>
+    
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر العروض">
+            <div class="filter-card">
+              <select id="promoTypeFilter" class="search-form">
+                <option value="all">كل العروض</option>
+                <option value="category">عروض الأقسام</option>
+                <option value="product">عروض المنتجات</option>
+              </select>
+            </div>
+            <div class="filter-card">
+              <select id="promoStatusFilter" class="search-form">
+                <option value="all">كل الحالات</option>
+                <option value="active">نشطة فقط</option>
+                <option value="expired">منتهية</option>
+              </select>
+            </div>
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="promosSearch" class="search-form" placeholder="ابحث...">
+                <button id="promosSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="promosGrid" class="grid-view"></div>
+        </div>
+        <div id="promosModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم من نحن ========== -->
+    <div id="who" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="form-container">
+            <form id="aboutForm">
+              <div class="form-row-compact">
+                <div class="form-group">
+                  <label for="aboutAr">المحتوى (عربي)</label>
+                  <textarea id="aboutAr" class="form-control" rows="6" placeholder="أدخل النص بالعربية" required></textarea>
+                </div>
+          
+                <div class="form-group">
+                  <label for="aboutEn">Content (English)</label>
+                  <textarea id="aboutEn" class="form-control" rows="6" placeholder="Enter text in English" required></textarea>
+                </div>
+              </div>
+        
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> حفظ</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== قسم المنتجات ========== -->
+    <div id="products" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="btn-group">
+            <button class="btn-add" id="addProductBtn">
+              <i class="fas fa-plus"></i> إضافة منتج جديد
+            </button>
+            <button class="btn-add-two" id="importJsonBtn">
+              <i class="fas fa-file-import"></i> استيراد JSON
+            </button>
+          </div>
+
+          <div class="filter-container">
+            <div class="filter-card">
+              <select id="categoryFilter" class="search-form">
+                <option value="all">الكل</option>
+                <option value="outOfStock">نفاذ الكمية</option>   
+              </select>
+            </div> 
+     
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="productsSearch" class="search-form" placeholder="ابحث...">
+                <button id="productsSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="productsGrid" class="grid-view"></div>
+        </div>
+        <div id="productsModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم الطلبات ========== -->
+    <div id="orders" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="order-summary">
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">الكل</span>
+                <i class="fas fa-box-open summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="total-orders">0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">جديد</span>
+                <i class="fas fa-bell summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="new-orders">0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">قيد التجهيز</span>
+                <i class="fas fa-spinner summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="processing-orders">0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">تم التسليم</span>
+                <i class="fas fa-home summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="completed-orders">0</div>
+            </div>
+          </div>
+
+          <div class="filter-container" aria-label="وحدة فلاتر الطلبات">
+            <div class="filter-card">
+              <select id="orderStatusFilter" class="search-form">
+                <option value="all" selected>الكل</option>
+                <option value="new">جديد</option>
+                <option value="confirmed">تم التأكيد</option>
+                <option value="processing">قيد التجهيز</option>
+                <option value="shipped">تم الشحن</option>
+                <option value="completed">تم التسليم</option>
+                <option value="cancelled">ملغي</option>
+              </select>
+            </div>
+
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="ordersSearch" class="search-form" placeholder="ابحث...">
+                <button id="ordersSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="ordersGrid" class="orders-grid"></div>
+        </div>
+        <div id="orderModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم رسائل العملاء ========== -->
+    <div id="customer-messages" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="message-summary">
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">إجمالي</span>
+                <i class="fas fa-envelope summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="total-messages">0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">جديدة</span>
+                <i class="fas fa-comment-dots summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="new-messages">0</div>
+            </div>
+          </div>
+
+          <div class="filter-container" aria-label="وحدة الفلاتر الموحدة">
+            <div class="filter-card">
+              <select id="messageStatusFilter" class="search-form">
+                <option value="all" selected>الحاله</option>
+                <option value="new">جديدة</option>
+                <option value="replied">تم الرد</option>
+              </select>
+            </div>
+
+            <div class="filter-card">
+              <select id="messageTimeFilter" class="search-form">
+                <option value="all" selected>الفتره</option>
+                <option value="today">اليوم</option>
+                <option value="week">الأسبوع الحالي</option>
+                <option value="month">الشهر الحالي</option>
+              </select>
+            </div>
+
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="messageSearch" class="search-form" placeholder="ابحث...">
+                <button id="messageSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="messagesGrid" class="messages-grid" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========== قسم الأقسام ========== -->
+    <div id="categories" class="section-content">
+      <div class="grid-container">
+        <div>
+          <button class="btn-add" id="addCategoryBtn">
+            <i class="fas fa-plus"></i> إضافة قسم جديد
+          </button>
+         
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر الأقسام">
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="categoriesSearch" class="search-form" placeholder="ابحث...">
+                <button id="categoriesSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="categoriesGrid" class="grid-view"></div>
+        </div>
+        <div id="categoriesModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== قسم البوت ========== -->
+    <div id="bot" class="section-content">
+      <div class="grid-container">
+        <div>
+          <div class="section-header">
+            <div class="header-actions">
+              <div class="btn-group">
+                <button class="btn-add" id="addBotBtn">
+                  <i class="fas fa-plus"></i> إضافة رد جديد
+                </button>
+                <button class="btn-add-two" id="importBotJsonBtn">
+                  <i class="fas fa-file-import"></i> استيراد JSON
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bot-summary">
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">إجمالي الردود</span>
+                <i class="fas fa-robot summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="totalBotResponses">0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-top">
+                <span class="summary-label">ترحيبية</span>
+                <i class="fas fa-handshake summary-icon" aria-hidden="true"></i>
+              </div>
+              <div class="summary-value" id="welcomeResponses">0</div>
+            </div>
+          </div>
+
+          <!-- شريط البحث والتصفية -->
+          <div class="filter-container" aria-label="وحدة فلاتر ردود البوت">
+            <div class="filter-card">
+              <select id="botCategoryFilter" class="search-form">
+                <option value="all">الكل</option>
+                <option value="general">عام</option>
+                <option value="welcome">ترحيبية</option>
+              </select>
+            </div>
+            <div class="filter-card">
+              <div class="search-wrapper">
+                <input type="text" id="botSearch" class="search-form" placeholder="ابحث...">
+                <button id="botSearchBtn" title="بحث"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div id="botGrid" class="grid-view"></div>
+        </div>
+        <div id="botModalRoot" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ========== شريط التنقل السفلي المتحرك ========== -->
+    <div id="menu-bar-container">
+      <div class="gbc-animated-menu-bar">
+        <div>
+          <span aria-hidden="true" role="img" class="material-symbols-outlined">cottage</span>
+        </div>
+        <div>
+          <div>
+            <button data-index="0" data-section="categories" title="الأقسام">
+              <span class="material-symbols-outlined">dashboard</span>
+              <span class="button-title">الأقسام</span>
+            </button>
+            <button data-index="1" data-section="products" title="المنتجات">
+              <span class="material-symbols-outlined">inventory_2</span>
+              <span class="button-title">المنتجات</span>
+            </button>
+            <button data-index="2" data-section="dashboard" title="الرئيسية">
+              <span class="material-symbols-outlined">cottage</span>
+              <span class="button-title">الرئيسية</span>
+            </button>
+            <button data-index="3" data-section="orders" title="الطلبات">
+              <span class="material-symbols-outlined">shopping_cart</span>
+              <span class="button-title">الطلبات</span>
+              <span class="notification-badge" id="ordersBadgeMobile" style="display: none;">0</span>
+            </button>
+            <button data-index="4" data-section="customer-messages" title="الرسائل">
+              <span class="material-symbols-outlined">mail</span>
+              <span class="button-title">الرسائل</span>
+              <span class="notification-badge" id="messagesBadgeMobile" style="display: none;">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== القوالب ========== -->
+    <!-- قالب الطلبيات -->
+    <template id="orderCardTpl">
+      <div class="order-card-new">
+
+        <div class="order-info">
+
+          <div class="order-row">
+            <div class="status-pill order-item status-new">جديد</div>
+            <div class="date-pill order-item order-date">22/9</div>
+          </div>
+
+          <div class="order-row">
+            <div class="order-item cust-name">احمد محمد</div>
+            <div class="order-item cust-phone">01001234567</div>
+          </div>
+     
+          <div class="order-row">
+            <div class="order-item payment-pill payment-cash_on_delivery">الدفع عند الاستلام</div>
+            <div class="order-item order-total">5000</div>
+          </div>
+        </div>
+
+        <div class="card-buttons">
+          <button class="btn btn-outline details-btn" title="تفاصيل"><i class="fa fa-info-circle"></i> تفاصيل</button>
+          <button class="btn btn-wa wa-btn" title="واتساب"><i class="fab fa-whatsapp"></i> واتس</button>
+        </div>
+      </div>
+    </template>
+
+    <!-- قالب الرسائل -->
+    <template id="messageTpl">
+      <div class="message-card-new">
+        <div class="message-header">
+          <div class="message-meta">
+            <div class="msg-status status-new">جديدة</div>
+            <div class="msg-date">2024-01-15</div>
+          </div>
+          <div class="sender-info">
+            <div class="msg-name">أحمد محمد</div>
+            <div class="msg-contact" title="رقم الهاتف">01001234567</div>
+          </div>
+        </div>
+
+        <div class="msg-preview" data-full="">مرحباً، أريد الاستفسار عن المنتج الذي شاهدته في متجركم. هل يتوفر باللون الأحمر؟ وما هو وقت التوصيل المتوقع؟ شكراً لكم.</div>
+            
+        <div class="message-actions">
+          <button class="btn btn-wa reply-btn" title="الرد">
+            <i class="fas fa-reply"></i> رد 
+          </button>
+          <button class="btn btn-del delete-msg" title="حذف الرسالة">
+            <i class="fas fa-trash"></i> حذف
+          </button>
+        </div>
+      </div>
+    </template>
+
+    <!-- نافذة عرض تفاصيل الرسالة -->
+    <div id="messageModal" class="modal" aria-hidden="true" style="display: none;">
+      <div class="modal-content message-modal">
+
+        <div class="modal-header">
+          <div class="sender">
+            <div class="name" id="modalSender">أحمد محمد</div>
+            <div class="time" id="modalTime">منذ 5 دقائق</div>
+          </div>
+          <button class="modal-close" id="modalClose" aria-label="إغلاق">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div id="modalMessage" class="message-text"> ما هو وقت التوصيل المتوقع </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button id="modalMarkRead" class="btn btn-primary">
+            <i class="fas fa-check"></i> تم الرد
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+    <input type="file" id="botJsonFileInput" accept=".json" style="display: none;">
+    <div id="notification" class="notification" style="display: none;"></div>
+
+
+  </div>
+  <script type="module" defer src="script.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
+      line_linked: {
+      enable: true,
+      distance: 150,
+      color: "#ffffff",
+      opacity: 0.4,
+      width: 1
+      },
+      move: {
+      enable: true,
+      speed: 2,
+      direction: "none",
+      random: true,
+      straight: false,
+      out_mode: "out",
+      bounce: false
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+          }
+        }
+    });
+  </script>
+</body>
+</html>
